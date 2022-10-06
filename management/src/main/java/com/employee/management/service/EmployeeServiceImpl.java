@@ -22,7 +22,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public List<Employee> findAll() {
-        return (List<Employee>) employeeRepository.findAll();
+        return employeeRepository.findAll();
     }
 
     @Override
@@ -33,5 +33,18 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public Employee findById(String id) {
         return this.employeeRepository.findById(id).get();
+
+//    public Employee updateEmployee(String id, Employee employeeDetails) {
+//                Employee emp = EmployeesRepository.findById(id).get();
+//                emp.setFirstName(employeeDetails.getFirstName());
+//                emp.setLastName(employeeDetails.getLastName());
+//
+//                return EmployeesRepository.save(emp);
+//            }
+ }
+
+    @Override
+    public void deleteById(String id) {
+        this.employeeRepository.deleteById(id);
     }
 }
