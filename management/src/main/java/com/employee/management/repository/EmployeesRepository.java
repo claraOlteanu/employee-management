@@ -9,9 +9,9 @@ import java.util.Optional;
 public interface EmployeesRepository extends MongoRepository<Employee,String> {
     List<Employee> findEmployeeByName(String name);
 
-    Optional<Employee> findById(String id);
+    Optional<Employee> findById(Long id);
 
-    void deleteById(String id);
+    void deleteById(Long id);
 
 //    Employee updateEmployee(String id, Employee employeeDetails);
 

@@ -13,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 @Document("employees")
 @AllArgsConstructor
@@ -22,18 +23,25 @@ import javax.validation.constraints.Size;
 public class Employee {
     @Id
     @GeneratedValue
-    private String id;
+    private Long id;
+
     @NotBlank(message = "Please enter name")
     private String name;
+
     @NotBlank(message = "Please enter email")
     private String email;
+
     private double salary;
+
+    @Size(min = 9, max = 10)
     private String telephone;
-    private String dateOfBirth;
+
+    private Date dateOfBirth;
+
     private String department;
 
 
-    public Employee(String id) {
+    public Employee(Long id) {
         this.id = id;
     }
 }

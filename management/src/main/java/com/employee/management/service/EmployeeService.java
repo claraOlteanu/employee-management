@@ -11,10 +11,8 @@ public interface EmployeeService {
 
     List<Employee> findEmployeeByName(String name);
 
-    Employee findById(String id);
+    Employee findById(Long id);
 
-    void deleteById(String id);
-//
-//    Employee updateEmployee(String id, Employee employeeDetails);
+    void deleteById(Long id);
 
 }

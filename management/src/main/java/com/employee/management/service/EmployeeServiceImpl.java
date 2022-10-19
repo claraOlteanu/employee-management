@@ -1,5 +1,7 @@
 package com.employee.management.service;
 
+import com.employee.management.exception.EmployeeNotFoundException;
+import com.employee.management.exception.NoDataFoundException;
 import com.employee.management.model.Employee;
 import org.springframework.stereotype.Service;
 import com.employee.management.repository.EmployeesRepository;
@@ -8,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeesRepository employeeRepository;
 
     public EmployeeServiceImpl(EmployeesRepository employeeRepository) {
@@ -22,7 +24,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Override
     public List<Employee> findAll() {
-        return employeeRepository.findAll();
+        var employees = (List<Employee>) employeeRepository.findAll();
+        if(employees.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+        return employees;
     }
 
     @Override
@@ -31,20 +37,14 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public Employee findById(String id) {
-        return this.employeeRepository.findById(id).get();
-
-//    public Employee updateEmployee(String id, Employee employeeDetails) {
-//                Employee emp = EmployeesRepository.findById(id).get();
-//                emp.setFirstName(employeeDetails.getFirstName());
-//                emp.setLastName(employeeDetails.getLastName());
-//
-//                return EmployeesRepository.save(emp);
-//            }
- }
+    public Employee findById(Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+    }
 
     @Override
-    public void deleteById(String id) {
+    public void deleteById(Long id){
         this.employeeRepository.deleteById(id);
-    }
+        }
+
 }
